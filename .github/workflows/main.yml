@@ -1,0 +1,29 @@
+name: Run Linux Code
+
+on: 
+  push:
+    branches:
+      - main
+  pull_request:
+    branches:
+      - main
+  workflow_dispatch:  # Allows manual triggering
+
+jobs:
+  run-linux-code:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v4
+
+      - name: Set Up Environment
+        run: |
+          echo "Setting up dependencies..."
+          sudo apt-get update && sudo apt-get install -y curl wget
+
+      - name: Execute Script
+        run: |
+          echo "Running Linux commands"
+          uname -a
+          ls -lah
