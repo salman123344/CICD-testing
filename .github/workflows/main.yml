@@ -36,4 +36,16 @@ jobs:
           key: ${{ secrets.KEY }}
           port: 22
           source: ./
-          target: /home/ubuntu
+          target: /home/${{ secrets.USERNAME }}/deployment_tmp/
+
+      - name: Move files to /var/www/html on EC2
+        uses: appleboy/ssh-action@v0.1.7
+        with:
+          host: ${{ secrets.HOST }}
+          username: ${{ secrets.USERNAME }}
+          key: ${{ secrets.KEY }}
+          port: 22
+          script: |
+            sudo cp -r . /var/www/html/
+            sudo chown -R www-data:www-data /var/www/html/
+            sudo chmod -R 755 /var/www/html/
