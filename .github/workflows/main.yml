@@ -27,3 +27,13 @@ jobs:
           echo "Running Linux commands"
           uname -a
           ls -lah
+
+      - name: Copy code to EC2
+        uses: appleboy/scp-action@v0.1.7
+        with:
+          host: ${{ secrets.HOST }}
+          username: ${{ secrets.USERNAME }}
+          key: ${{ secrets.KEY }}
+          port: 22
+          source: ./
+          target: /home/ubuntu
